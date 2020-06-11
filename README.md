@@ -1,2 +1,2 @@
 # chisel_proxy
-Simple chisel launcher (?) written in Python
+Simple chisel launcher (?) written in Go
