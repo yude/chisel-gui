@@ -1,2 +1,2 @@
 # chisel_proxy
-Simple chisel launcher (?) written in Go
+[WIP] Launcher of chisel, TCP tunnel
