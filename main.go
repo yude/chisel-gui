@@ -6,6 +6,8 @@ import (
 	"net/http"
 	"os"
 
+	"fyne.io/fyne"
+
 	"fyne.io/fyne/app"
 	"fyne.io/fyne/widget"
 )
@@ -14,7 +16,7 @@ func main() {
 	os.Setenv("FYNE_FONT", "C:\\Windows\\Fonts\\meiryo.ttc")
 	a := app.New()
 	w := a.NewWindow("chisel - A fast TCP tunnel over HTTP")
-	hello, desc := widget.NewLabel("こんにちは！"), widget.NewLabel("chisel.exe が存在しているか確かめます。")
+	hello, desc := widget.NewLabelWithStyle("こんにちは！", fyne.TextAlignCenter, fyne.TextStyle{Bold: true}), widget.NewLabelWithStyle("chisel.exe が存在しているか確かめます。", fyne.TextAlignCenter, fyne.TextStyle{})
 	launch := widget.NewButton("起動する", func() {
 		if f, err := os.Stat("chisel.exe"); os.IsNotExist(err) || f.IsDir() {
 			desc.SetText("chisel.exe が存在しません。ダウンロードします。")
@@ -35,6 +37,8 @@ func main() {
 			desc.SetText("chisel.exe が存在します。プロキシを起動します。")
 		}
 	})
+	w.SetFixedSize(true)
+	w.Resize(fyne.NewSize(390, 100))
 	w.SetContent(widget.NewVBox(
 		hello,
 		desc,
