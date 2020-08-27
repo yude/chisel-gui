@@ -54,10 +54,10 @@ func main() {
 		launch.Disable()
 		// chisel をダウンロードして展開する
 		if f, err := os.Stat(newfilename); os.IsNotExist(err) || f.IsDir() {
+			// chisel (gz ファイル) をダウンロードする
 			desc.SetText("chisel が存在しません。ダウンロードします。")
 			output, err := os.Create("chisel.gz")
 			defer output.Close()
-
 			response, err := http.Get(url)
 			desc.SetText("chisel が存在しません。ダウンロードしています...")
 			if err != nil {
@@ -71,40 +71,38 @@ func main() {
 			// 展開部
 			desc.SetText("展開しています...")
 			filename := "chisel.gz"
-			gzipfile, errdec := os.Open(filename)
+			gzipfile, err := os.Open(filename)
 
 			if err != nil {
-				logField.SetText(fmt.Sprintln(errdec))
-				println(errdec)
+				logField.SetText(fmt.Sprintln(err))
+				println(err)
 				//os.Exit(1)
 			}
 
 			reader, err := gzip.NewReader(gzipfile)
 			if err != nil {
-				logField.SetText(fmt.Sprintln(errdec))
-				println(errdec)
-				os.Exit(1)
+				logField.SetText(fmt.Sprintln(err))
+				println(err)
+				//os.Exit(1)
 			}
 			defer reader.Close()
 
 			writer, err := os.Create(newfilename)
 
 			if err != nil {
-				logField.SetText(fmt.Sprintln(errdec))
-				println(errdec)
-				os.Exit(1)
-				defer writer.Close()
+				logField.SetText(fmt.Sprintln(err))
+				println(err)
+				// os.Exit(1)
 			}
 
 			defer writer.Close()
 			if _, err = io.Copy(writer, reader); err != nil {
-				logField.SetText(fmt.Sprintln(errdec))
-				println(errdec)
-				os.Exit(1)
-				defer writer.Close()
+				logField.SetText(fmt.Sprintln(err))
+				println(err)
+				// os.Exit(1)
 			}
-			defer writer.Close()
 			defer gzipfile.Close()
+			// ダウンロードした chisel.gz を削除
 			if err := os.Remove("chisel.gz"); err != nil {
 				fmt.Println(err)
 			}
@@ -161,6 +159,9 @@ func main() {
 			case line := <-stderrOutputChan:
 				// log.Println(line)
 				logField.SetText(line)
+				/*if fmt.Println(strings.LastIndex(line, "test")) {
+					println("334")
+				}*/
 			}
 		}
 
