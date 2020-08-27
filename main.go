@@ -50,15 +50,12 @@ func main() {
 		} else {
 			desc.SetText("chisel が既に存在します。プロキシを起動します。")
 		}
-		// コマンドと引数を定義する
+
 		c := "chisel_x64.exe"
 		p := []string{"client", "proxy.yude.moe", "25565"}
 		cmd := exec.Command(c, p...)
-
-		// 実行ディレクトリ
 		cmd.Dir = "."
 
-		// パイプを作る
 		stdout, err := cmd.StdoutPipe()
 		if err != nil {
 			log.Fatal(err)
@@ -82,7 +79,6 @@ func main() {
 			doneChan <- true
 		}
 
-		// stdout, stderrをひろうgoroutineを起動
 		stdoutScanner := bufio.NewScanner(stdout)
 		stdoutOutputChan := make(chan string)
 		stdoutDoneChan := make(chan bool)
@@ -92,7 +88,6 @@ func main() {
 		go streamReader(stdoutScanner, stdoutOutputChan, stdoutDoneChan)
 		go streamReader(stderrScanner, stderrOutputChan, stderrDoneChan)
 
-		// channel経由でデータを引っこ抜く
 		stillGoing := true
 		for stillGoing {
 			select {
@@ -107,7 +102,6 @@ func main() {
 			}
 		}
 
-		//一応Waitでプロセスの終了をまつ
 		ret := cmd.Wait()
 		if ret != nil {
 			log.Fatal(err)
