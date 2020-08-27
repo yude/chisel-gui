@@ -1,0 +1,3 @@
+cd ../
+go run .
+pause
