@@ -94,10 +94,10 @@ func main() {
 			case <-stdoutDoneChan:
 				stillGoing = false
 			case line := <-stdoutOutputChan:
-				log.Println(line)
+				// log.Println(line)
 				logField.SetText(line)
 			case line := <-stderrOutputChan:
-				log.Println(line)
+				// log.Println(line)
 				logField.SetText(line)
 			}
 		}
