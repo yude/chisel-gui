@@ -1,2 +1,3 @@
 # chisel_proxy
-[WIP] Launcher of chisel, TCP tunnel
+chisel を GUI でいい感じに扱う
+* [jpillora/chisel: A fast TCP tunnel over HTTP](https://github.com/jpillora/chisel)
