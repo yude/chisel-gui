@@ -31,15 +31,15 @@ func main() {
 		launch.Disable()
 
 		if f, err := os.Stat("chisel_x64.exe"); os.IsNotExist(err) || f.IsDir() {
-			desc.SetText("chisel.exe が存在しません。ダウンロードします。")
+			desc.SetText("chisel が存在しません。ダウンロードします。")
 			url := "https://chiselmirror.now.sh/chisel_x64.exe"
 			output, err := os.Create("chisel")
 			defer output.Close()
 
 			response, err := http.Get(url)
-			desc.SetText("chisel.exe が存在しません。ダウンロードしています...")
+			desc.SetText("chisel が存在しません。ダウンロードしています...")
 			if err != nil {
-				desc.SetText("chisel.exe を何らかの理由でダウンロードできませんでした。")
+				desc.SetText("chisel を何らかの理由でダウンロードできませんでした。")
 				return
 			}
 			defer response.Body.Close()
@@ -48,7 +48,7 @@ func main() {
 			time.Sleep(1 * time.Second)
 			desc.SetText("プロキシを起動します。")
 		} else {
-			desc.SetText("chisel.exe が既に存在します。プロキシを起動します。")
+			desc.SetText("chisel が既に存在します。プロキシを起動します。")
 		}
 		// コマンドと引数を定義する
 		c := "chisel_x64.exe"
