@@ -1,4 +1,4 @@
-# chisel_proxy
+# chisel-gui
 chisel を GUI でいい感じに扱うためのもの。
 
 
