@@ -1,4 +1,4 @@
-# [yudete](https://github.com/yudete) / chisel_proxy
+# chisel_proxy
 chisel を GUI でいい感じに扱うためのもの。
 
 
